@@ -38,24 +38,8 @@ const table = document.querySelector("[data-table]");
 // update put/patch  
 // delete delete
 
-const listaClientes = () => {
-    const promise = new Promise((resolve,reject) =>{
-        const http = new XMLHttpRequest();
-        http.open("GET", "http://localhost:3000/perfil");
-        http.send();
-        http.onload= ()=>{
-        const response = JSON.parse(http.response);
-        if (http.status >= 400){
-            reject(response)
-        }else{
-            resolve(response)
-        }
-    
-};
-    })
+const listaClientes = () => fetch("http://localhost:3000/perfil").then(respuesta => respuesta.json());
 
-    return promise
-}
 listaClientes().then((data) => {
     data.forEach(perfil => {
         const nuevaLinea = crearNuevaLinea(perfil.nombre,perfil.email);
